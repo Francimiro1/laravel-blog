@@ -2,44 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/', function () {
-    $naslov = 'Moj sjajni blog';
-    $clanci = ['Uvod u Laravel', 'PHP osnove', 'MySQL za početnike'];
-
-    return view('blog', [
-        'naslov' => $naslov,
-        'clanci' => $clanci,
-    ]);
-});
-
-Route::get('/pozdrav/{ime}', function ($ime) {
-    return 'Pozdrav, ' . $ime . '! Dobrodošli u Laravel.';
-});
-
-Route::get('/api/automobili', function () {
-    return response()->json([
-        [
-            'id'      => 1,
-            'marka'   => 'Volkswagen',
-            'model'   => 'Golf',
-            'godina'  => 2022,
-        ],
-        [
-            'id'      => 2,
-            'marka'   => 'Toyota',
-            'model'   => 'Corolla',
-            'godina'  => 2021,
-        ],
-        [
-            'id'      => 3,
-            'marka'   => 'BMW',
-            'model'   => '3 Series',
-            'godina'  => 2023,
-        ],
+Route::get('/clanak', function () {
+    return view('clanak', [
+        'naslov'     => 'Uvod u Laravel',
+        'sadrzaj'    => 'Laravel je najpopularniji PHP framework...',
+        'objavljen'  => true,
+        'komentara'  => 0,
+        'autor'      => 'Ana Horvat',
     ]);
 });
 
@@ -53,9 +22,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/automobili', function () {
-    return view('automobili');
-});
+
 
 Route::get('/povrce', function () {
     $povrce = ['Krumpir', 'Mrkva', 'Luk', 'Rajčica'];
@@ -67,5 +34,81 @@ Route::get('/omeni', function () {
         'ime' => 'Vaše Ime',
         'razred' => '4. razred',
         'omiljeni_predmet' => 'Informatika'
+    ]);
+});
+
+// BLOK 2 ZADATAK 1
+Route::get('/knjige', function () {
+
+    $knjige = [
+        ['naslov'=>'Na Drini ćuprija','autor'=>'Ivo Andrić','godina'=>1945,'procitana'=>true],
+        ['naslov'=>'Zločin i kazna','autor'=>'Dostojevski','godina'=>1866,'procitana'=>true],
+        ['naslov'=>'1984','autor'=>'George Orwell','godina'=>1949,'procitana'=>false],
+        ['naslov'=>'Mali princ','autor'=>'Antoine de Saint-Exupéry','godina'=>1943,'procitana'=>true],
+        ['naslov'=>'Alkemičar','autor'=>'Paulo Coelho','godina'=>1988,'procitana'=>false],
+    ];
+
+    $procitano = 0;
+
+    foreach ($knjige as $k) {
+        if ($k['procitana']) {
+            $procitano++;
+        }
+    }
+
+    $ukupno = count($knjige);
+
+    return view('knjige', compact('knjige','procitano','ukupno'))
+        ->with('aktivnaStrana','knjige');
+});
+
+// BLOK 2 ZADATAK 2
+Route::get('/automobili', function () {
+
+    $automobili = [
+        ['marka'=>'BMW','model'=>'X5','godina'=>2020],
+        ['marka'=>'Audi','model'=>'A4','godina'=>2019],
+    ];
+
+    return view('automobili', [
+        'automobili' => $automobili,
+        'aktivnaStrana' => 'automobili'
+    ]);
+});
+
+
+Route::get('/studenti', function () {
+
+    $studenti = [
+        ['ime'=>'Ivan','godina'=>1,'polozio'=>true],
+        ['ime'=>'Ana','godina'=>2,'polozio'=>false],
+    ];
+
+    return view('studenti', [
+        'studenti' => $studenti,
+        'aktivnaStrana' => 'studenti'
+    ]);
+});
+
+
+Route::get('/kontakt', function () {
+    return view('kontakt', [
+        'aktivnaStrana' => 'kontakt'
+    ]);
+});
+
+Route::get('/raspored', function () {
+
+    $raspored = [
+        'Ponedjeljak' => ['Matematika', 'Programiranje', 'Baze podataka'],
+        'Utorak' => ['Engleski', 'Operacijski sustavi'],
+        'Srijeda' => ['Web programiranje', 'Algoritmi'],
+        'Četvrtak' => ['Računalne mreže', 'Programiranje'],
+        'Petak' => ['Projekt', 'Tjelesni']
+    ];
+
+    return view('raspored', [
+        'raspored' => $raspored,
+        'aktivnaStrana' => 'raspored'
     ]);
 });
