@@ -18,7 +18,7 @@
 
         @foreach($sati as $sat)
 
-            @include('partials.sat', ['sat' => $sat])
+            @include('partials.sat  ', ['sat' => $sat])
 
         @endforeach
 

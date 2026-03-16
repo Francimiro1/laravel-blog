@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KnjigaController;
 
 Route::get('/clanak', function () {
     return view('clanak', [
@@ -97,6 +98,8 @@ Route::get('/kontakt', function () {
     ]);
 });
 
+// BLOK 2 ZADATAK 3
+
 Route::get('/raspored', function () {
 
     $raspored = [
@@ -112,3 +115,20 @@ Route::get('/raspored', function () {
         'aktivnaStrana' => 'raspored'
     ]);
 });
+
+// BLOK 3 ZADATAK 1
+
+Route::get('/knjige', [KnjigaController::class, 'index']);
+
+// BLOK 3 ZADATAK 2
+
+use App\Http\Controllers\FilmController;
+
+Route::get('/filmovi', [FilmController::class, 'index'])->name('filmovi.index');
+Route::get('/filmovi/{id}', [FilmController::class, 'show'])->name('filmovi.show');
+
+// BLOK 3 ZADATAK 3
+
+use App\Http\Controllers\ReceptiController;
+
+Route::resource('recepti', ReceptiController::class);
