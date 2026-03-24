@@ -132,3 +132,7 @@ Route::get('/filmovi/{id}', [FilmController::class, 'show'])->name('filmovi.show
 use App\Http\Controllers\ReceptiController;
 
 Route::resource('recepti', ReceptiController::class);
+
+// BLOK 4 ZADATAK 1
+
+
